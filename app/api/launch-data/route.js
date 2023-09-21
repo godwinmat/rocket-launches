@@ -1,19 +1,10 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
+import { NextResponse } from "next/server";
+
 const axios = require("axios");
 
-const app = express();
-const port = 3001;
 const url = "https://api.spacexdata.com/v3/launches";
 
-// Middleware
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
-// Define a simple route
-app.get("/api/launchdata", async (req, res) => {
+export async function GET() {
     try {
         const response = await axios.get(url);
         const data = response.data?.map((datum) => {
@@ -31,13 +22,10 @@ app.get("/api/launchdata", async (req, res) => {
 
             return newObject;
         });
-        res.json(data);
-    } catch (error) {
-        res.json({ error: error.message });
-    }
-});
 
-// Start the server
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
+        return NextResponse.json(data);
+    } catch (error) {
+        console.log(error.message);
+        return new NextResponse.json({ error: error.message });
+    }
+}
