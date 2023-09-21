@@ -22,7 +22,7 @@ import {
     DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 
-const DataTable = ({ columns, data }) => {
+const DataTable = ({ columns, data, error }) => {
     const table = useReactTable({
         data,
         columns,
@@ -106,7 +106,7 @@ const DataTable = ({ columns, data }) => {
                                     colSpan={columns.length}
                                     className="h-24 text-center"
                                 >
-                                    No results.
+                                    {error ? error : "No results."}
                                 </TableCell>
                             </TableRow>
                         )}

@@ -12,7 +12,6 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { axiosInstance } from "@/lib/axios";
 
 const columns = [
     {
@@ -141,67 +140,75 @@ const DataGrid = () => {
 
     useEffect(() => {
         async function getData() {
-            const response = await axiosInstance.get("/api/launch-data");
-            let data = [];
+            try {
+                const response = await axios.get("/api/launch-data/");
+                let data = [];
 
-            if (response.data.error) {
-                setError(response.data.error);
-                return;
-            }
+                if (response.data.error) {
+                    setError(response.data.error);
+                    return;
+                }
 
-            if (outcome !== null && missionName === null && year === null) {
-                data = response.data?.filter(
-                    (resp) =>
-                        JSON.parse(resp.launch_success) === JSON.parse(outcome)
-                );
-            } else if (
-                missionName !== null &&
-                year === null &&
-                outcome === null
-            ) {
-                data = response.data?.filter(
-                    (resp) => missionName === resp.name
-                );
-            } else if (
-                year !== null &&
-                missionName === null &&
-                outcome === null
-            ) {
-                data = response.data?.filter(
-                    (resp) => Number(year) === Number(resp.year)
-                );
-            } else if (
-                missionName !== null &&
-                outcome !== null &&
-                year === null
-            ) {
-                data = response.data?.filter(
-                    (resp) =>
-                        missionName === resp.name &&
-                        JSON.parse(resp.launch_success) === JSON.parse(outcome)
-                );
-            } else if (
-                missionName !== null &&
-                outcome === null &&
-                year !== null
-            ) {
-                data = response.data?.filter(
-                    (resp) =>
-                        Number(year) === Number(resp.year) &&
-                        missionName === resp.name
-                );
-            } else if (
-                missionName === null &&
-                outcome !== null &&
-                year !== null
-            ) {
-                data = response.data?.filter(
-                    (resp) =>
-                        Number(year) === Number(resp.year) &&
-                        JSON.parse(resp.launch_success) === JSON.parse(outcome)
-                );
+                if (outcome !== null && missionName === null && year === null) {
+                    data = response.data?.filter(
+                        (resp) =>
+                            JSON.parse(resp.launch_success) ===
+                            JSON.parse(outcome)
+                    );
+                } else if (
+                    missionName !== null &&
+                    year === null &&
+                    outcome === null
+                ) {
+                    data = response.data?.filter(
+                        (resp) => missionName === resp.name
+                    );
+                } else if (
+                    year !== null &&
+                    missionName === null &&
+                    outcome === null
+                ) {
+                    data = response.data?.filter(
+                        (resp) => Number(year) === Number(resp.year)
+                    );
+                } else if (
+                    missionName !== null &&
+                    outcome !== null &&
+                    year === null
+                ) {
+                    data = response.data?.filter(
+                        (resp) =>
+                            missionName === resp.name &&
+                            JSON.parse(resp.launch_success) ===
+                                JSON.parse(outcome)
+                    );
+                } else if (
+                    missionName !== null &&
+                    outcome === null &&
+                    year !== null
+                ) {
+                    data = response.data?.filter(
+                        (resp) =>
+                            Number(year) === Number(resp.year) &&
+                            missionName === resp.name
+                    );
+                } else if (
+                    missionName === null &&
+                    outcome !== null &&
+                    year !== null
+                ) {
+                    data = response.data?.filter(
+                        (resp) =>
+                            Number(year) === Number(resp.year) &&
+                            JSON.parse(resp.launch_success) ===
+                                JSON.parse(outcome)
+                    );
+                }
+                setData(data);
+            } catch (error) {
+                console.log(error.message);
+                setError(error.message);
             }
-            setData(data);
         }
 
         getData();
@@ -217,7 +224,7 @@ const DataGrid = () => {
                 <p>Mission Name: {missionName}</p>
                 <p>Year: {year}</p>
                 <p>Outcome: {outcome}</p>
-                <DataTable columns={columns} data={data} />
+                <DataTable columns={columns} data={data} error={error} />
             </div>
         </div>
     );
