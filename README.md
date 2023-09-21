@@ -15,10 +15,10 @@ This is a Next.js application that provides a list of upcoming and past rocket l
 
 1. Clone the repository and install the dependencies:
 
-git clone https://github.com/godwinmat/rocket-launches.git
+   `git clone https://github.com/godwinmat/rocket-launches.git`
 
 2. Start the development server:
 
-npm run dev
+   `npm run dev`
 
 3. Visit `http://localhost:3000` in your web browser to view the website.
