@@ -21,6 +21,7 @@ import {
 import { cn } from "@/lib/utils";
 import qs from "query-string";
 import { useRouter } from "next/navigation";
+import { scrollIntoTheView } from "@/lib/scrollIntoView";
 
 const outcomes = ["Succeeded", "Failed"];
 
@@ -69,6 +70,9 @@ const SearchForm = ({ uniqueYears }) => {
         } else {
             router.push(url + "#data-grid");
         }
+
+        router.push(url);
+        scrollIntoTheView("data-grid");
 
         form.reset();
     }

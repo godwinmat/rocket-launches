@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { ChevronLeft, ChevronRight, Rocket } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { scrollIntoTheView } from "@/lib/scrollIntoView";
 
 const Banner = () => {
     const [imageCount, setImageCount] = useState(1);
@@ -39,7 +40,8 @@ const Banner = () => {
                 <Button
                     variant="outline"
                     className="my-4 bg-transparent border border-white mx-auto md:mx-0 md:w-fit"
-                    onClick={() => router.push("#data-grid")}
+                    // onClick={() => router.push("#data-grid")}
+                    onClick={() => scrollIntoTheView("data-grid")}
                 >
                     Explore Launches <Rocket />
                 </Button>
