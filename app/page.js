@@ -14,6 +14,7 @@ export default function Home() {
     async function getData() {
         try {
             const { data } = await axios.get("/api/launch-data");
+
             setUniqueYears(getUniqueYears(data));
             setData(data);
         } catch (error) {

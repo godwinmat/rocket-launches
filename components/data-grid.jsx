@@ -134,6 +134,7 @@ const DataGrid = () => {
     const searchParams = useSearchParams();
     const [data, setData] = useState([]);
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
     const missionName = searchParams.get("mission_name");
     const year = searchParams.get("year");
     const outcome = searchParams.get("outcome");
@@ -141,6 +142,7 @@ const DataGrid = () => {
     useEffect(() => {
         async function getData() {
             try {
+                setLoading(true);
                 const response = await axios.get("/api/launch-data/");
                 let data = [];
 
@@ -208,23 +210,29 @@ const DataGrid = () => {
             } catch (error) {
                 console.log(error.message);
                 setError(error.message);
+            } finally {
+                setLoading(false);
             }
         }
-
         getData();
-    }, []);
+    }, [missionName, year, outcome]);
 
     return (
         <div
             id="data-grid"
-            className="bg-[#0F151E] w-full px-4 md:px-10 lg:px-20 flex justify-center items-center"
+            className="bg-[#0F151E] text-white w-full px-4 md:px-10 lg:px-20 flex justify-center items-center"
         >
             <div className="py-20 text-center min-w-full">
                 <h1 className="text-4xl py-5">Launch Details</h1>
                 <p>Mission Name: {missionName}</p>
                 <p>Year: {year}</p>
                 <p>Outcome: {outcome}</p>
-                <DataTable columns={columns} data={data} error={error} />
+                <DataTable
+                    columns={columns}
+                    data={data}
+                    error={error}
+                    loading={loading}
+                />
             </div>
         </div>
     );

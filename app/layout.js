@@ -1,6 +1,5 @@
 import "./globals.css";
 import { Montserrat_Alternates } from "next/font/google";
-import { ThemeProvider } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/navbar";
 
@@ -18,14 +17,8 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <body className={cn(montserratAlternates.className, "relative")}>
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="light"
-                    enableSystem
-                >
-                    <Navbar />
-                    {children}
-                </ThemeProvider>
+                <Navbar />
+                {children}
             </body>
         </html>
     );

@@ -26,21 +26,24 @@ const Banner = () => {
                 src={`/rocket${imageCount}.jpg`}
                 fill
                 className="object-center"
+                alt="space  craft image"
             />
             <div className="absolute bg-black/50 w-full h-full top-0 left-0 right-0" />
-            <div className="text-white z-10 w-fit pl-10">
-                <h1 className="text-7xl py-5">Galactic Explorations</h1>
-                <p className="text-base">
+            <div className="text-white z-10 px-5 flex flex-col justify-center md:justify-normal md:px-10">
+                <h1 className="text-4xl sm:text-5xl lg:text-7xl py-5 text-center md:text-left">
+                    Galactic Explorations
+                </h1>
+                <p className="text-base text-center md:text-left">
                     Exploring the Cosmos, One Launch at a Time
                 </p>
                 <Button
                     variant="outline"
-                    className="my-4 bg-transparent border border-white"
+                    className="my-4 bg-transparent border border-white mx-auto md:mx-0 md:w-fit"
                     onClick={() => router.push("#data-grid")}
                 >
-                    Explore Launches <Rocket />{" "}
+                    Explore Launches <Rocket />
                 </Button>
-                <div className="flex w-fit gap-10 mt-5">
+                <div className="flex gap-10 mt-5  mx-auto md:mx-0 md:w-fit">
                     <Button
                         variant="outline"
                         className="bg-transparent border border-white"

@@ -69,12 +69,13 @@ const SearchForm = ({ uniqueYears }) => {
         } else {
             router.push(url + "#data-grid");
         }
-        window.location.reload();
+
+        form.reset();
     }
 
     return (
-        <div className="w-full px-4 md:px-10 lg:px-20 flex justify-center items-center">
-            <div className="py-20 text-center">
+        <div className="bg-foreground w-full px-4 md:px-10 lg:px-20 flex justify-center items-center">
+            <div className="py-20 text-center text-white">
                 <h1 className="text-4xl py-5">Find A Specific Launch</h1>
                 <p>
                     Search for specific rocket launches by mission name, year or
@@ -95,6 +96,7 @@ const SearchForm = ({ uniqueYears }) => {
                                             placeholder="Mission Name"
                                             disabled={isLoading}
                                             {...field}
+                                            className="bg-transparent"
                                         />
                                     </FormControl>
                                     <FormMessage />

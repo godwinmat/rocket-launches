@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Loader2 } from "lucide-react";
 import {
     DropdownMenu,
     DropdownMenuCheckboxItem,
@@ -22,7 +22,7 @@ import {
     DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 
-const DataTable = ({ columns, data, error }) => {
+const DataTable = ({ columns, data, error, loading }) => {
     const table = useReactTable({
         data,
         columns,
@@ -35,7 +35,10 @@ const DataTable = ({ columns, data, error }) => {
             <div className="flex justify-end">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild className="self-end">
-                        <Button variant="outline" className="ml-auto">
+                        <Button
+                            variant="outline"
+                            className="ml-auto bg-transparent"
+                        >
                             Columns <ChevronDown className="ml-2 h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
@@ -81,8 +84,18 @@ const DataTable = ({ columns, data, error }) => {
                             </TableRow>
                         ))}
                     </TableHeader>
+
                     <TableBody>
-                        {table?.getRowModel().rows?.length ? (
+                        {loading ? (
+                            <TableRow>
+                                <TableCell
+                                    colSpan={columns.length}
+                                    className="h-24"
+                                >
+                                    <Loader2 className="w-7 h-7 animate-spin mx-auto" />
+                                </TableCell>
+                            </TableRow>
+                        ) : !loading && table?.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
                                 <TableRow
                                     key={row.id}
@@ -122,6 +135,7 @@ const DataTable = ({ columns, data, error }) => {
                     <Button
                         variant="outline"
                         size="sm"
+                        className="bg-transparent"
                         onClick={() => table.previousPage()}
                         disabled={!table.getCanPreviousPage()}
                     >
@@ -130,6 +144,7 @@ const DataTable = ({ columns, data, error }) => {
                     <Button
                         variant="outline"
                         size="sm"
+                        className="bg-transparent"
                         onClick={() => table.nextPage()}
                         disabled={!table.getCanNextPage()}
                     >
