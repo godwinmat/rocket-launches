@@ -65,11 +65,11 @@ const SearchForm = ({ uniqueYears }) => {
             { skipEmptyString: true, skipNull: true }
         );
 
-        if (url.includes("#data-grid")) {
-            router.push(url);
-        } else {
-            router.push(url + "#data-grid");
-        }
+        // if (url.includes("#data-grid")) {
+        //     router.push(url);
+        // } else {
+        //     router.push(url + "#data-grid");
+        // }
 
         router.push(url);
         scrollIntoTheView("data-grid");
